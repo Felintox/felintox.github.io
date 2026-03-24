@@ -1,0 +1,271 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel Felinto — Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --black: #0f0f0f;
+    --gray: #6b6b6b;
+    --light: #f5f4f1;
+    --border: #e2e0db;
+    --white: #ffffff;
+    --accent-bi:  #1a6ef5;
+    --accent-sql: #d4450c;
+    --accent-py:  #0fa854;
+    --accent-ml:  #8b38d4;
+  }
+
+  html { scroll-behavior: smooth; }
+
+  body {
+    font-family: 'DM Sans', sans-serif;
+    background: var(--white);
+    color: var(--black);
+    font-size: 15px;
+    line-height: 1.65;
+    -webkit-font-smoothing: antialiased;
+  }
+
+  nav {
+    position: fixed;
+    top: 0; left: 0; right: 0;
+    z-index: 100;
+    background: rgba(255,255,255,0.92);
+    backdrop-filter: blur(12px);
+    border-bottom: 1px solid var(--border);
+    padding: 0 2rem;
+    height: 52px;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+  }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--gray); letter-spacing: 0.04em; text-decoration: none; }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--black); }
+
+  .hero { padding: 140px 2rem 80px; max-width: 860px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--gray); text-transform: uppercase; margin-bottom: 1.25rem; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.25rem; }
+  .hero h1 em { font-style: italic; font-weight: 300; }
+  .hero-desc { font-size: 16px; color: var(--gray); max-width: 520px; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s; border: none; }
+  .btn-primary { background: var(--black); color: var(--white); }
+  .btn-primary:hover { background: #333; }
+  .btn-outline { background: transparent; color: var(--black); border: 1px solid var(--border); }
+  .btn-outline:hover { border-color: #aaa; background: var(--light); }
+
+  .skills-strip { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+  .skills-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--gray); text-transform: uppercase; padding-top: 2px; min-width: 60px; }
+  .skills-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px; color: var(--gray); background: var(--light); }
+
+  .projects { max-width: 860px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; }
+  .section-title { font-size: 13px; font-family: 'DM Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--gray); white-space: nowrap; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  .project-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(360px, 1fr));
+    gap: 1px;
+    background: var(--border);
+    border: 1px solid var(--border);
+    border-radius: 12px;
+    overflow: hidden;
+  }
+
+  .project-card { background: var(--white); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: background 0.15s; }
+  .project-card:hover { background: var(--light); }
+
+  .card-top-bar { height: 3px; width: 100%; flex-shrink: 0; }
+
+  .card-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center; display: block; border-bottom: 1px solid var(--border); }
+
+  .card-body { padding: 1.25rem 1.5rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .card-category { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .card-title { font-size: 15px; font-weight: 500; line-height: 1.35; }
+  .card-desc { font-size: 13px; color: var(--gray); line-height: 1.6; margin-top: 2px; }
+
+  .card-footer { padding: 0.75rem 1.5rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--gray); display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+  .card-arrow { transition: transform 0.2s; font-size: 14px; }
+  .project-card:hover .card-arrow { transform: translateX(4px); }
+
+  footer { border-top: 1px solid var(--border); max-width: 860px; margin: 0 auto; padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-name { font-size: 13px; color: var(--gray); }
+  .footer-links { display: flex; gap: 1.25rem; }
+  .footer-links a { font-size: 13px; color: var(--gray); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--black); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-tag   { animation: fadeUp 0.5s ease both; }
+  .hero h1    { animation: fadeUp 0.5s ease 0.08s both; }
+  .hero-desc  { animation: fadeUp 0.5s ease 0.16s both; }
+  .hero-links { animation: fadeUp 0.5s ease 0.24s both; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero { padding: 100px 1.25rem 60px; }
+    .skills-strip, .projects { padding-left: 1.25rem; padding-right: 1.25rem; }
+    footer { padding: 1.5rem 1.25rem; }
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">gf.dev</a>
+  <ul class="nav-links">
+    <li><a href="#projetos">projetos</a></li>
+    <li><a href="https://medium.com/@gabrielfelinto2020" target="_blank">medium</a></li>
+    <li><a href="https://github.com/Felintox" target="_blank">github</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Portfólio · Data Science</p>
+  <h1>Gabriel<br><em>Felinto</em></h1>
+  <p class="hero-desc">
+    Mestrando em Engenharia Química na UFPE, com foco em machine learning aplicado à ciência de materiais. Trabalho com Python, SQL, Power BI e modelos de ML para transformar dados em decisões.
+  </p>
+  <div class="hero-links">
+    <a href="https://linkedin.com/in/gabriel-felinto" target="_blank" class="btn btn-primary">LinkedIn ↗</a>
+    <a href="https://github.com/Felintox" target="_blank" class="btn btn-outline">GitHub</a>
+    <a href="https://medium.com/@gabrielfelinto2020" target="_blank" class="btn btn-outline">Medium</a>
+  </div>
+</section>
+
+<div class="skills-strip">
+  <span class="skills-label">Skills</span>
+  <div class="skills-tags">
+    <span class="tag">Python</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Power BI</span>
+    <span class="tag">Machine Learning</span>
+    <span class="tag">XGBoost</span>
+    <span class="tag">LightGBM</span>
+    <span class="tag">Scikit-learn</span>
+    <span class="tag">Pandas</span>
+    <span class="tag">SHAP</span>
+    <span class="tag">Optuna</span>
+    <span class="tag">PyTorch</span>
+    <span class="tag">Git</span>
+  </div>
+</div>
+
+<section class="projects" id="projetos">
+  <div class="section-header">
+    <span class="section-title">Projetos</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="project-grid">
+
+    <a href="https://github.com/Felintox/Analise-Preditiva-Enem-2023" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--accent-ml);"></div>
+      <img class="card-img" src="img/enem.png" alt="SHAP plot ENEM 2023" loading="lazy">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--accent-ml);">Machine Learning</span>
+        <p class="card-title">Análise Preditiva ENEM 2023</p>
+        <p class="card-desc">Predição de notas a partir de dados socioeconômicos de 2,6M registros. LightGBM + Optuna + SHAP. RMSE 75.71 — 20.6% melhor que o baseline.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · LightGBM · SHAP</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="https://app.powerbi.com/view?r=eyJrIjoiM2Q0YjIyNzMtNDQ4Mi00MjIzLTljZDctYWRjNjFlNjc1MmI2IiwidCI6IjY3NzhmMDFhLWI5ZmMtNGNlYy1iZTgyLTM0N2U5NzMzNTI4ZCJ9" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--accent-bi);"></div>
+      <img class="card-img" src="img/entregas.gif" alt="Dashboard Power BI Entregas" loading="lazy">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--accent-bi);">Power BI</span>
+        <p class="card-title">Dashboard · Startup de Entregas</p>
+        <p class="card-desc">Dashboards interativos com indicadores de receita por estado, tipo de entrega e distribuição de bônus para 4.824 entregadores.</p>
+      </div>
+      <div class="card-footer">
+        <span>Power BI · DAX</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/Felintox/Sql_Olist_Analise" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--accent-sql);"></div>
+      <img class="card-img" src="img/olist.gif" alt="Análise SQL Olist" loading="lazy">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--accent-sql);">SQL</span>
+        <p class="card-title">Análise de E-Commerce · Olist</p>
+        <p class="card-desc">Análise do Brazilian E-Commerce Public Dataset. Rankings de vendedores, categorias mais lucrativas e taxas de cancelamento com SQL + MySQL.</p>
+      </div>
+      <div class="card-footer">
+        <span>SQL · MySQL</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/Felintox/Tera_Desafio_Inferencia" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--accent-py);"></div>
+      <img class="card-img" src="img/inferencia.png" alt="Inferência estatística depressão" loading="lazy">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--accent-py);">Python · Estatística</span>
+        <p class="card-title">Inferência Estatística · Transtorno Depressivo</p>
+        <p class="card-desc">Testes de hipótese para entender a relação entre características socioeconômicas e depressão. Dados NHNES. Qui-quadrado e ANOVA.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · Scipy · Seaborn</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="https://www.kaggle.com/code/gabrielfelinto/eda-salary-data-science-2020-2024" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--accent-py);"></div>
+      <img class="card-img" src="img/salarios.png" alt="Distribuição salários Data Science" loading="lazy">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--accent-py);">Python · EDA</span>
+        <p class="card-title">EDA · Salários em Data Science (2020–2024)</p>
+        <p class="card-desc">Análise exploratória de salários em DS identificando padrões por região, senioridade e tipo de contrato.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · Pandas · Matplotlib</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <a href="https://github.com/Felintox/Curso-DSA" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--accent-py);"></div>
+      <img class="card-img" src="img/varejo.png" alt="EDA varejo EUA" loading="lazy">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--accent-py);">Python · EDA</span>
+        <p class="card-title">EDA · Varejo nos EUA</p>
+        <p class="card-desc">Perguntas de negócio para uma rede de varejo: cidades com maior volume de vendas, segmentos mais lucrativos e tendências por categoria.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · Pandas · Matplotlib</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Gabriel Felinto · Recife, PE</span>
+  <div class="footer-links">
+    <a href="https://github.com/Felintox" target="_blank">GitHub</a>
+    <a href="https://linkedin.com/in/gabriel-felinto" target="_blank">LinkedIn</a>
+    <a href="https://medium.com/@gabrielfelinto2020" target="_blank">Medium</a>
+    <a href="mailto:gabrielfelinto2020@gmail.com">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
