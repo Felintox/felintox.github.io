@@ -1,0 +1,274 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gabriel Felinto — Data Science</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=DM+Sans:ital,wght@0,300;0,400;0,500;1,300&family=DM+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --bg:      #05101f;
+    --bg2:     #0a1929;
+    --bg3:     #0d2137;
+    --border:  rgba(255,255,255,0.08);
+    --border2: rgba(255,255,255,0.14);
+    --text:    #e8f0fe;
+    --muted:   #7ea4c8;
+    --white:   #ffffff;
+    --accent:  #e85c2a;
+    --acc-ml:  #c084fc;
+    --acc-py:  #3dd68c;
+    --acc-sql: #ff6b3d;
+    --acc-bi:  #4d9fff;
+  }
+
+  html { scroll-behavior: smooth; }
+  body { font-family: 'DM Sans', sans-serif; background: var(--bg); color: var(--text); font-size: 15px; line-height: 1.65; -webkit-font-smoothing: antialiased; }
+
+  nav { position: fixed; top: 0; left: 0; right: 0; z-index: 100; background: rgba(5,16,31,0.88); backdrop-filter: blur(16px); border-bottom: 1px solid var(--border); padding: 0 2rem; height: 52px; display: flex; align-items: center; justify-content: space-between; }
+  .nav-logo { font-family: 'DM Mono', monospace; font-size: 13px; color: var(--muted); letter-spacing: 0.04em; text-decoration: none; }
+  .nav-links { display: flex; gap: 1.75rem; list-style: none; }
+  .nav-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .nav-links a:hover { color: var(--text); }
+
+  .hero { padding: 140px 2rem 80px; max-width: 860px; margin: 0 auto; border-bottom: 1px solid var(--border); }
+  .hero-tag { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.12em; color: var(--muted); text-transform: uppercase; margin-bottom: 1.25rem; }
+  .hero h1 { font-size: clamp(2.4rem, 5vw, 3.6rem); font-weight: 300; line-height: 1.15; letter-spacing: -0.02em; margin-bottom: 1.25rem; color: var(--white); }
+  .hero h1 em { font-style: italic; font-weight: 300; color: var(--accent); }
+  .hero-desc { font-size: 16px; color: var(--muted); max-width: 560px; margin-bottom: 2rem; line-height: 1.7; }
+  .hero-note { font-size: 13px; color: var(--muted); opacity: 0.7; max-width: 560px; margin-bottom: 2rem; font-style: italic; }
+  .hero-links { display: flex; gap: 1rem; flex-wrap: wrap; }
+
+  .btn { display: inline-flex; align-items: center; gap: 6px; padding: 9px 18px; font-size: 13px; font-family: 'DM Sans', sans-serif; font-weight: 500; text-decoration: none; border-radius: 6px; transition: all 0.2s; border: none; cursor: pointer; }
+  .btn-primary { background: var(--accent); color: var(--white); }
+  .btn-primary:hover { background: #d44e22; }
+  .btn-outline { background: transparent; color: var(--text); border: 1px solid var(--border2); }
+  .btn-outline:hover { border-color: var(--muted); background: var(--bg3); }
+
+  .skills-strip { max-width: 860px; margin: 0 auto; padding: 2.5rem 2rem; border-bottom: 1px solid var(--border); display: flex; gap: 2rem; flex-wrap: wrap; align-items: flex-start; }
+  .skills-label { font-family: 'DM Mono', monospace; font-size: 11px; letter-spacing: 0.1em; color: var(--muted); text-transform: uppercase; padding-top: 2px; min-width: 60px; }
+  .skills-tags { display: flex; flex-wrap: wrap; gap: 8px; }
+  .tag { font-size: 12px; padding: 4px 10px; border: 1px solid var(--border); border-radius: 4px; color: var(--muted); background: var(--bg2); }
+
+  .projects { max-width: 860px; margin: 0 auto; padding: 3.5rem 2rem 5rem; }
+  .section-header { display: flex; align-items: baseline; gap: 1rem; margin-bottom: 2.5rem; }
+  .section-title { font-size: 13px; font-family: 'DM Mono', monospace; letter-spacing: 0.1em; text-transform: uppercase; color: var(--muted); white-space: nowrap; }
+  .section-line { flex: 1; height: 1px; background: var(--border); }
+
+  .project-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(360px, 1fr)); gap: 1px; background: var(--border); border: 1px solid var(--border); border-radius: 12px; overflow: hidden; }
+
+  .project-card { background: var(--bg2); text-decoration: none; color: inherit; display: flex; flex-direction: column; transition: background 0.15s; }
+  .project-card:hover { background: var(--bg3); }
+  .card-top-bar { height: 3px; width: 100%; flex-shrink: 0; }
+  .card-img { width: 100%; aspect-ratio: 16 / 9; object-fit: cover; object-position: top center; display: block; border-bottom: 1px solid var(--border); }
+  .card-body { padding: 1.25rem 1.5rem 1rem; flex: 1; display: flex; flex-direction: column; gap: 5px; }
+  .card-category { font-family: 'DM Mono', monospace; font-size: 10px; letter-spacing: 0.1em; text-transform: uppercase; }
+  .card-title { font-size: 15px; font-weight: 500; line-height: 1.35; color: var(--white); }
+  .card-desc { font-size: 13px; color: var(--muted); line-height: 1.6; margin-top: 2px; }
+  .card-footer { padding: 0.75rem 1.5rem; border-top: 1px solid var(--border); font-size: 12px; color: var(--muted); display: flex; justify-content: space-between; align-items: center; margin-top: auto; }
+  .card-arrow { transition: transform 0.2s; font-size: 14px; }
+  .project-card:hover .card-arrow { transform: translateX(4px); }
+
+  footer { border-top: 1px solid var(--border); max-width: 860px; margin: 0 auto; padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
+  .footer-name { font-size: 13px; color: var(--muted); }
+  .footer-links { display: flex; gap: 1.25rem; }
+  .footer-links a { font-size: 13px; color: var(--muted); text-decoration: none; transition: color 0.2s; }
+  .footer-links a:hover { color: var(--text); }
+
+  @keyframes fadeUp { from { opacity: 0; transform: translateY(16px); } to { opacity: 1; transform: translateY(0); } }
+  .hero-tag   { animation: fadeUp 0.5s ease both; }
+  .hero h1    { animation: fadeUp 0.5s ease 0.08s both; }
+  .hero-desc  { animation: fadeUp 0.5s ease 0.16s both; }
+  .hero-note  { animation: fadeUp 0.5s ease 0.2s both; }
+  .hero-links { animation: fadeUp 0.5s ease 0.24s both; }
+
+  @media (max-width: 640px) {
+    .nav-links { display: none; }
+    .hero { padding: 100px 1.25rem 60px; }
+    .skills-strip, .projects { padding-left: 1.25rem; padding-right: 1.25rem; }
+    footer { padding: 1.5rem 1.25rem; }
+    .project-grid { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+
+<nav>
+  <a href="#" class="nav-logo">gf.dev</a>
+  <ul class="nav-links">
+    <li><a href="#projetos">projetos</a></li>
+    <li><a href="https://medium.com/@gabrielfelinto2020" target="_blank">medium</a></li>
+    <li><a href="https://github.com/Felintox" target="_blank">github</a></li>
+  </ul>
+</nav>
+
+<section class="hero">
+  <p class="hero-tag">Portfólio · Data Science</p>
+  <h1>Gabriel<br><em>Felinto</em></h1>
+  <p class="hero-desc">
+    Cientista de Dados com graduação em Engenharia e Mestrado em andamento na UFPE. Experiência com modelos preditivos, pipelines ETL e grandes volumes de dados — Python, SQL, Power BI e ML aplicados a problemas reais.
+  </p>
+  <div class="hero-links">
+    <a href="https://www.linkedin.com/in/gabrielfelinto/" target="_blank" class="btn btn-primary">LinkedIn ↗</a>
+    <a href="https://github.com/Felintox" target="_blank" class="btn btn-outline">GitHub</a>
+    <a href="https://medium.com/@gabrielfelinto2020" target="_blank" class="btn btn-outline">Medium</a>
+  </div>
+</section>
+
+<div class="skills-strip">
+  <span class="skills-label">Skills</span>
+  <div class="skills-tags">
+    <span class="tag">Python</span>
+    <span class="tag">SQL</span>
+    <span class="tag">Power BI</span>
+    <span class="tag">Machine Learning</span>
+    <span class="tag">XGBoost</span>
+    <span class="tag">LightGBM</span>
+    <span class="tag">Scikit-learn</span>
+    <span class="tag">Keras</span>
+    <span class="tag">TensorFlow</span>
+    <span class="tag">PyTorch</span>
+    <span class="tag">Pandas</span>
+    <span class="tag">SHAP</span>
+    <span class="tag">Optuna</span>
+    <span class="tag">MLflow</span>
+    <span class="tag">Streamlit</span>
+    <span class="tag">Plotly</span>
+    <span class="tag">Seaborn</span>
+    <span class="tag">LangChain</span>
+    <span class="tag">Git</span>
+    <span class="tag">GCP</span>
+  </div>
+</div>
+
+<section class="projects" id="projetos">
+  <div class="section-header">
+    <span class="section-title">Projetos</span>
+    <div class="section-line"></div>
+  </div>
+
+  <div class="project-grid">
+
+    <!-- 1. ENEM - ML -->
+    <a href="https://github.com/Felintox/Analise-Preditiva-Enem-2023" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-ml);"></div>
+      <img class="card-img" src="imagens/ml-enem.png" alt="Análise Preditiva ENEM 2023">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-ml);">Machine Learning</span>
+        <p class="card-title">Análise Preditiva ENEM 2023</p>
+        <p class="card-desc">Modelo preditivo treinado nos microdados do INEP (2,6M registros) para estimar notas a partir de variáveis socioeconômicas. LightGBM otimizado com Optuna atingiu RMSE 75.71 — 20.6% melhor que o baseline. Interpretabilidade via SHAP e deploy em produção com Streamlit.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · LightGBM · Optuna · SHAP · Streamlit · MLflow</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 2. Telecom Churn - ML -->
+    <a href="https://github.com/Felintox/Telecom-Churn-Classification" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-ml);"></div>
+      <img class="card-img" src="imagens/ml-churn.png" alt="Telecom Customer Churn">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-ml);">Machine Learning</span>
+        <p class="card-title">Classificação de Churn · Telecom</p>
+        <p class="card-desc">Modelo XGBoost para prever cancelamento de clientes (7K registros, 20 features). Otimizado por F2-score via Optuna priorizando Recall — detectou 86% dos churns reais, transformando uma perda projetada de R$500K em resultado positivo de R$354K.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · XGBoost · Optuna · Scikit-learn</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 3. EDA Salários DS -->
+    <a href="https://www.kaggle.com/code/gabrielfelinto/eda-salary-data-science-2020-2024" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-py);"></div>
+      <img class="card-img" src="imagens/eda-salario.png" alt="EDA Salários Data Science">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-py);">Python · EDA</span>
+        <p class="card-title">EDA · Salários em Data Science (2020–2024)</p>
+        <p class="card-desc">Análise exploratória de salários na área de DS identificando padrões de remuneração por região, senioridade e tipo de contrato — útil tanto para profissionais quanto para empregadores no planejamento de pacotes competitivos.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · Pandas · Matplotlib · Seaborn</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 4. SQL Olist -->
+    <a href="https://medium.com/@gabrielfelinto2020/an%C3%A1lise-de-dados-de-e-commerce-com-sql-407e4226e5c2" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-sql);"></div>
+      <img class="card-img" src="imagens/sql1-.png" alt="Análise E-Commerce Olist">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-sql);">SQL</span>
+        <p class="card-title">Análise de E-Commerce · Olist</p>
+        <p class="card-desc">Modelagem e análise do Brazilian E-Commerce Public Dataset em MySQL. Queries para ranking dos 20 maiores vendedores de 2017, categorias mais vendidas, taxa de entrega no prazo e vendedores com maior índice de cancelamento.</p>
+      </div>
+      <div class="card-footer">
+        <span>SQL · MySQL</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 5. Power BI Entregas -->
+    <a href="https://medium.com/@gabrielfelinto2020/an%C3%A1lise-de-dados-de-uma-startup-de-entregas-f38a350a80b2" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-bi);"></div>
+      <img class="card-img" src="imagens/power-bi.png" alt="Dashboard Startup de Entregas">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-bi);">Power BI</span>
+        <p class="card-title">Dashboard · Startup de Entregas</p>
+        <p class="card-desc">Análise exploratória e dashboards interativos para uma startup de logística com 4.824 entregadores. Indicadores de receita por estado e tipo de entrega, ranking dos top 20 por distância percorrida e cálculo de bônus via DAX.</p>
+      </div>
+      <div class="card-footer">
+        <span>Power BI · DAX · Excel</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 6. Inferência -->
+    <a href="https://github.com/Felintox/Tera_Desafio_Inferencia" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-py);"></div>
+      <img class="card-img" src="imagens/inferencial.png" alt="Inferência Estatística Transtorno Depressivo">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-py);">Python · Estatística</span>
+        <p class="card-title">Inferência Estatística · Transtorno Depressivo</p>
+        <p class="card-desc">Testes de hipótese aplicados aos dados da NHANES para investigar como gênero, idade e renda familiar se relacionam com transtorno depressivo. Qui-quadrado para variáveis categóricas e ANOVA para variáveis contínuas.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · Scipy · Pandas · Seaborn</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 7. Varejo EUA -->
+    <a href="https://github.com/Felintox/Curso-DSA" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-py);"></div>
+      <img class="card-img" src="imagens/eda-varejo.png" alt="EDA Varejo nos EUA">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-py);">Python · EDA</span>
+        <p class="card-title">EDA · Varejo nos EUA</p>
+        <p class="card-desc">Resposta a dez perguntas de negócio sobre uma rede de varejo americana: cidades e estados com maior volume de vendas, segmentos mais lucrativos, categorias de produto e tendências temporais de pedidos.</p>
+      </div>
+      <div class="card-footer">
+        <span>Python · Pandas · Matplotlib</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+  </div>
+</section>
+
+<footer>
+  <span class="footer-name">Gabriel Felinto · Recife, PE</span>
+  <div class="footer-links">
+    <a href="https://github.com/Felintox" target="_blank">GitHub</a>
+    <a href="https://www.linkedin.com/in/gabrielfelinto/" target="_blank">LinkedIn</a>
+    <a href="https://medium.com/@gabrielfelinto2020" target="_blank">Medium</a>
+    <a href="mailto:gabrielfelinto2020@gmail.com">Email</a>
+  </div>
+</footer>
+
+</body>
+</html>
