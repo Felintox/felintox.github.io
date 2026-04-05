@@ -72,6 +72,11 @@
   .card-arrow { transition: transform 0.2s; font-size: 14px; }
   .project-card:hover .card-arrow { transform: translateX(4px); }
 
+  .card-badges { display: flex; flex-wrap: wrap; gap: 5px; margin-top: 8px; }
+  .badge { font-size: 10px; padding: 2px 7px; border-radius: 3px; font-family: 'DM Mono', monospace; letter-spacing: 0.04em; border: 1px solid rgba(255,255,255,0.1); }
+  .badge-infra { color: #4d9fff; border-color: rgba(77,159,255,0.25); background: rgba(77,159,255,0.07); }
+  .badge-live  { color: #3dd68c; border-color: rgba(61,214,140,0.25); background: rgba(61,214,140,0.07); }
+
   footer { border-top: 1px solid var(--border); max-width: 860px; margin: 0 auto; padding: 2rem; display: flex; justify-content: space-between; align-items: center; flex-wrap: wrap; gap: 1rem; }
   .footer-name { font-size: 13px; color: var(--muted); }
   .footer-links { display: flex; gap: 1.25rem; }
@@ -136,6 +141,8 @@
     <span class="tag">Optuna</span>
     <span class="tag">MLflow</span>
     <span class="tag">Streamlit</span>
+    <span class="tag">FastAPI</span>
+    <span class="tag">Docker</span>
     <span class="tag">Plotly</span>
     <span class="tag">Seaborn</span>
     <span class="tag">LangChain</span>
@@ -152,7 +159,29 @@
 
   <div class="project-grid">
 
-    <!-- 1. ENEM - ML -->
+    <!-- 1. Telecom Churn - ML + Deploy -->
+    <a href="https://github.com/Felintox/Telecom-Churn-Classification" target="_blank" class="project-card">
+      <div class="card-top-bar" style="background: var(--acc-ml);"></div>
+      <img class="card-img" src="imagens/ml-churn.png" alt="Telecom Customer Churn">
+      <div class="card-body">
+        <span class="card-category" style="color: var(--acc-ml);">Machine Learning · MLOps</span>
+        <p class="card-title">Classificação de Churn · Telecom</p>
+        <p class="card-desc">XGBoost otimizado por F2-score via Optuna para prever cancelamento de clientes — detectou 87% dos churns reais, transformando uma perda projetada de R$500K em resultado positivo. A pipeline treinada foi exposta como API REST com FastAPI, containerizada com Docker, publicada via Google Cloud Build e servida 24h no Google Cloud Run. Um bot Telegram hospedado no Compute Engine consome a API em produção e apresenta os resultados ao vivo.</p>
+        <div class="card-badges">
+          <span class="badge badge-infra">Docker</span>
+          <span class="badge badge-infra">Cloud Build</span>
+          <span class="badge badge-infra">Cloud Run</span>
+          <span class="badge badge-infra">Compute Engine</span>
+          <span class="badge badge-live">● API em produção</span>
+        </div>
+      </div>
+      <div class="card-footer">
+        <span>Python · XGBoost · FastAPI · Docker · GCP</span>
+        <span class="card-arrow">→</span>
+      </div>
+    </a>
+
+    <!-- 2. ENEM - ML -->
     <a href="https://github.com/Felintox/Analise-Preditiva-Enem-2023" target="_blank" class="project-card">
       <div class="card-top-bar" style="background: var(--acc-ml);"></div>
       <img class="card-img" src="imagens/ml-enem.png" alt="Análise Preditiva ENEM 2023">
@@ -163,21 +192,6 @@
       </div>
       <div class="card-footer">
         <span>Python · LightGBM · Optuna · SHAP · Streamlit · MLflow</span>
-        <span class="card-arrow">→</span>
-      </div>
-    </a>
-
-    <!-- 2. Telecom Churn - ML -->
-    <a href="https://github.com/Felintox/Telecom-Churn-Classification" target="_blank" class="project-card">
-      <div class="card-top-bar" style="background: var(--acc-ml);"></div>
-      <img class="card-img" src="imagens/ml-churn.png" alt="Telecom Customer Churn">
-      <div class="card-body">
-        <span class="card-category" style="color: var(--acc-ml);">Machine Learning</span>
-        <p class="card-title">Classificação de Churn · Telecom</p>
-        <p class="card-desc">Modelo XGBoost para prever cancelamento de clientes (7K registros, 20 features). Otimizado por F2-score via Optuna priorizando Recall — detectou 86% dos churns reais, transformando uma perda projetada de R$500K em resultado positivo de R$354K.</p>
-      </div>
-      <div class="card-footer">
-        <span>Python · XGBoost · Optuna · Scikit-learn</span>
         <span class="card-arrow">→</span>
       </div>
     </a>
